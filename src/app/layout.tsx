@@ -2,9 +2,6 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "../config/theme";
-import { headers } from "next/headers";
-import { hash } from "../hash";
-import getDbClient from "../db";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,47 +23,7 @@ export const metadata: Metadata = {
     }
 };
 
-async function doViewer(addr?: string) {
-    if (!addr) return;
-
-    try {
-        const hashed = hash(addr);
-        const db = getDbClient();
-        await db.$connect();
-
-        const lastConnect = await db.viewer.findFirst({
-            where: {
-                addressHash: hashed
-            },
-            orderBy: {
-                createdAt: "desc"
-            }
-        });
-
-        if (lastConnect) {
-            if (((Date.now().valueOf()) - lastConnect.createdAt.valueOf()) < (1000 * 60 * 30)) return;
-        }
-
-        await db.viewer.create({
-            data: {
-                addressHash: hashed
-            }
-        });
-
-        await db.$disconnect();
-    } catch (e) {
-        console.error(e);
-    }
-}
-
 export default function RootLayout({ children }: { children: any }) {
-    const header = headers();
-    const clientAddr = header.get("x-forwarded-for");
-
-    doViewer(clientAddr)
-        .then()
-        .catch();
-
     return (
         <html lang="ko">
             <head>

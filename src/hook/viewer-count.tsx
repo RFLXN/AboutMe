@@ -6,8 +6,7 @@ import useSWR from "swr";
 const fetcher = (url: string) => fetch(url, { cache: "no-cache" }).then((res) => res.json());
 
 export default function useViewerCount() {
-    const { data, error, isLoading } = useSWR("/api/viewer", fetcher, { refreshInterval: 1000 });
-
+    const { data, error, isLoading } = useSWR("/api/viewer", fetcher, { refreshInterval: 10000 });
     return {
         viewerCount: data?.count as number | undefined,
         isError: error as Error,

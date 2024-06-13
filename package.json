@@ -8,11 +8,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "yarn run prisma:sync",
+    "prebuild": "yarn run prisma:sync && yarn run prisma:generate",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prisma:sync": "prisma migrate dev --name init"
+    "prisma:sync": "prisma migrate dev --name init",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@mantine/core": "7.10.0",

@@ -2,8 +2,9 @@ import { Box, Group } from "@mantine/core";
 import classes from "./header.module.css";
 import Logo from "../logo";
 import ThemeIcon from "./theme-icon";
-import ViewerCount from "./viewer-count";
+import dynamic from "next/dynamic";
 
+const ViewerCountNoSSR = dynamic(() => import("./viewer-count"), { ssr: false });
 
 export default function Header() {
 
@@ -13,7 +14,7 @@ export default function Header() {
                 <Group justify="space-between" h="100%">
                     <Logo />
                     <Group h="100%">
-                        <ViewerCount />
+                        <ViewerCountNoSSR />
                         <ThemeIcon />
                     </Group>
 

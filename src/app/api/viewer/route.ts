@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import getDbClient from "../../../db";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
     try {
         const db = getDbClient();
@@ -9,6 +11,7 @@ export async function GET(request: Request) {
         await db.$disconnect();
         return NextResponse.json({ success: true, count });
     } catch (e) {
+        console.error(e);
         return NextResponse.json({ success: false, error: "Failed to get viewer count" });
     }
 }
