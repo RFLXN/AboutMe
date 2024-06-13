@@ -1,0 +1,3 @@
+upstream nextjs {
+  server aboutme:3000;
+}
