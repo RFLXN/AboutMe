@@ -130,3 +130,9 @@ dist
 .pnp.*
 
 .DS_Store
+.idea
+
+# Prisma
+prisma/migrations/*_init
+prisma/dev.db
+prisma/dev.db-journal

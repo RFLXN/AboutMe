@@ -1,0 +1,15 @@
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["darwin", "darwin-arm64", "linux-musl-openssl-3.0.x", "linux-musl-arm64-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Viewer {
+  id          Int       @id @default(autoincrement())
+  addressHash String
+  createdAt   DateTime  @default(now())
+}
